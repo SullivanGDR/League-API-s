@@ -13,10 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'League Api\'s',
-      theme: ThemeData.dark(
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'LoL.GG'),
+      theme: ThemeData.dark(),
+      home: const MyHomePage(title: 'OP.GG'),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lol_api/champions_icon_icons.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -10,24 +11,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  double _moyenneEBC = 0.0;
+  Color colorGrey = const Color(0xFFA09B8C);
+  Color colorBlue = const Color(0xFF005A82);
+
+  String searchField = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF091428),
       appBar: AppBar(
         backgroundColor: Colors.white12,
         title: Text(
           widget.title,
-          style: const TextStyle(
-            color: Colors.redAccent,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+          style: TextStyle(
+            color: colorGrey,
+            fontSize: 30,
+            fontFamily: 'LoLFontBold',
           ),
         ),
         actions: [
           IconButton(
-              icon: Icon(Icons.menu, color: Colors.white, size: 25.0),
+              icon: Icon(CupertinoIcons.bars, color: colorGrey, size: 30.0),
               onPressed: () {}),
         ],
       ),
@@ -36,26 +41,27 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadiusDirectional.all(Radius.circular(10.0)),
-              color: Colors.white12,
+              color: Colors.white10,
             ),
             margin: const EdgeInsets.only(top: 10, left: 8, right: 8),
             padding: const EdgeInsets.all(10),
             height: 55,
             child: TextFormField(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white24),
+                    borderSide: BorderSide(color: colorGrey),
                   ),
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(CupertinoIcons.search),
-                  prefixIconColor: Colors.grey,
-                  labelStyle: TextStyle(color: Colors.grey),
+                  border: const OutlineInputBorder(),
+                  prefixIcon: const Icon(CupertinoIcons.search),
+                  prefixIconColor: colorGrey,
+                  labelStyle:
+                      TextStyle(color: colorGrey, fontFamily: 'LoLFont'),
                   labelText: "Rechercher un champion"),
               validator: (valeur) {
                 if (valeur == null || valeur.isEmpty) {
                   return 'Veuillez entrer la moyenne EBC des grains';
                 } else {
-                  _moyenneEBC = double.parse(valeur);
+                  return searchField = valeur.toString();
                 }
               },
             ),
@@ -65,6 +71,30 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomAppBar(
         color: Colors.white12,
         height: 50,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(CupertinoIcons.house_fill),
+                color: colorGrey),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(ChampionsIcon.helmet),
+              iconSize: 47,
+              padding: const EdgeInsets.only(bottom: 0),
+              color: colorGrey,
+            ),
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(CupertinoIcons.collections_solid),
+                color: colorGrey),
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(CupertinoIcons.gear_alt_fill),
+                color: colorGrey),
+          ],
+        ),
       ),
     );
   }
