@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'League Api\'s',
       theme: ThemeData.dark(),
-      home: const MyHomePage(title: 'OP.GG'),
+      home: const MyHomePage(title: 'LOL.GG'),
       debugShowCheckedModeBanner: false,
     );
   }

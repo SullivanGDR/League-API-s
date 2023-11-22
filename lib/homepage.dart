@@ -65,7 +65,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
               },
             ),
-          )
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadiusDirectional.all(Radius.circular(10.0)),
+              color: Colors.white10,
+            ),
+            margin: const EdgeInsets.only(top: 10, left: 8, right: 8),
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Rotation des champions',
+                      style: TextStyle(color: colorGrey, fontSize: 20),
+                    )
+                  ],
+                ),
+                const Padding(padding: EdgeInsets.only(bottom: 5)),
+              ],
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
