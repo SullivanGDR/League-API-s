@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark(
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'League Champion\'s'),
+      home: const MyHomePage(title: 'LoL.GG'),
       debugShowCheckedModeBanner: false,
     );
   }
