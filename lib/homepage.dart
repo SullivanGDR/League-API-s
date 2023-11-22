@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.white12,
         title: Text(
           widget.title,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.redAccent,
             fontWeight: FontWeight.bold,
             fontSize: 20,
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderSide: BorderSide(color: Colors.white24),
                   ),
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: Icon(CupertinoIcons.search),
                   prefixIconColor: Colors.grey,
                   labelStyle: TextStyle(color: Colors.grey),
                   labelText: "Rechercher un champion"),
