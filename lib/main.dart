@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lol_api/champions.dart';
 import 'package:lol_api/homepage.dart';
+import 'package:lol_api/splashscreen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:lol_api/champions_icon_icons.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,8 +18,114 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'League Api\'s',
       theme: ThemeData.dark(),
-      home: const MyHomePage(title: 'LOL.GG'),
+      home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
+      routes: <String, WidgetBuilder>{
+        '/home': (BuildContext context) => const MyHomePage(),
+        '/champions': (BuildContext context) => const FabricationPage(),
+      },
+    );
+  }
+}
+
+class MyAppBar extends StatelessWidget {
+
+  final Color colorGrey = const Color(0xFFA09B8C);
+  final Color colorBlue = const Color(0xFF005A82);
+
+  const MyAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.white12,
+      title: Text(
+        'LOL.GG',
+        style: TextStyle(
+          color: colorGrey,
+          fontSize: 30,
+          fontFamily: 'LoLFontBold',
+        ),
+      ),
+      actions: [
+        IconButton(
+            icon: Icon(CupertinoIcons.bars, color: colorGrey, size: 30.0),
+            onPressed: () {}),
+      ],
+    );
+  }
+}
+
+class MyBottomAppBar extends StatelessWidget {
+
+  final Color colorGrey = const Color(0xFFA09B8C);
+  final Color colorBlue = const Color(0xFF005A82);
+
+  const MyBottomAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+      color: Colors.white12,
+      height: 50,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => const MyHomePage(),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                const begin = 0.0;
+                const end = 1.0;
+                const curve = Curves.easeInOut;
+                var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                var fadeAnimation = animation.drive(tween);
+                return FadeTransition(
+                opacity: fadeAnimation,
+                child: child,
+                );
+                },
+                ));
+                },
+              icon: const Icon(CupertinoIcons.house_fill),
+              color: colorGrey),
+          IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => const FabricationPage(),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      const begin = 0.0;
+                      const end = 1.0;
+                      const curve = Curves.easeInOut;
+                      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                      var fadeAnimation = animation.drive(tween);
+                      return FadeTransition(
+                        opacity: fadeAnimation,
+                        child: child,
+                      );
+                    },
+                  ));
+            },
+            icon: const Icon(ChampionsIcon.helmet),
+            iconSize: 47,
+            padding: const EdgeInsets.only(bottom: 0),
+            color: colorGrey,
+          ),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(CupertinoIcons.collections_solid),
+              color: colorGrey),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(CupertinoIcons.gear_alt_fill),
+              color: colorGrey),
+        ],
+      ),
     );
   }
 }

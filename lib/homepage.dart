@@ -1,20 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lol_api/champions_icon_icons.dart';
+import 'package:lol_api/class/championsRota.dart';
+import 'package:lol_api/main.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Champion> _champions = [];
+
   Color colorGrey = const Color(0xFFA09B8C);
   Color colorBlue = const Color(0xFF005A82);
 
   String searchField = "";
+
+  @override
+
+  void initState() {
+    super.initState();
+    chargement();
+  }
+
+  void chargement() async {
+    _champions = await initListChampions(_champions);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.white12,
         title: Text(
-          widget.title,
+          'LOL.GG',
           style: TextStyle(
             color: colorGrey,
             fontSize: 30,
@@ -84,39 +99,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 const Padding(padding: EdgeInsets.only(bottom: 5)),
+                /*Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: _champions.map((champion) =>
+                          Card(
+                            child: ListTile(
+                              title: Text('ID: ${champion.getId()}'),
+                              subtitle: Text('Nom: ${champion.getNom()}'),
+                              // Ajoute d'autres widgets pour afficher d'autres détails du champion si nécessaire
+                            ),
+                          ),
+                      ).toList(),
+                    ),
+                  ),
+                ),*/
               ],
             ),
           ),
+
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.white12,
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(CupertinoIcons.house_fill),
-                color: colorGrey),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(ChampionsIcon.helmet),
-              iconSize: 47,
-              padding: const EdgeInsets.only(bottom: 0),
-              color: colorGrey,
-            ),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(CupertinoIcons.collections_solid),
-                color: colorGrey),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(CupertinoIcons.gear_alt_fill),
-                color: colorGrey),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const MyBottomAppBar(),
     );
   }
 }
