@@ -15,8 +15,9 @@ class ChampionInfos {
   final int _attackrange;
   final int _attackdamage;
   final double _attackspeed;
+  final String _lore;
 
-  ChampionInfos(this._id, this._nom, this._icon, this._nomCompact, this._passive, this._spells, this._role, this._hp, this._movespeed, this._armor, this._attackrange, this._attackdamage, this._attackspeed);
+  ChampionInfos(this._id, this._nom, this._icon, this._nomCompact, this._passive, this._spells, this._role, this._hp, this._movespeed, this._armor, this._attackrange, this._attackdamage, this._attackspeed, this._lore);
 
   String getId() {
     return _id;
@@ -68,6 +69,10 @@ class ChampionInfos {
 
   double getAttackSpeed(){
     return _attackspeed;
+  }
+
+  String getLore() {
+    return _lore;
   }
 }
 
@@ -133,6 +138,7 @@ Future<ChampionInfos> initTest(String nomChampion) async {
 
     final String championId = championData['key'];
     final String championName = championData['name'];
+    final String championLore = championData['lore'];
     final String championNameCompact = championData['id'];
     final List championRoles = championData['tags'];
     final String championIcon = '${championData['image']['full']}';
@@ -160,7 +166,7 @@ Future<ChampionInfos> initTest(String nomChampion) async {
       spells.add(spellInfo);
     }
 
-    ChampionInfos champion = ChampionInfos(championId, championName, championIcon, championNameCompact, passive, spells, championRoles, championHp, championMs, championArmor, championAr, championAd, championAs);
+    ChampionInfos champion = ChampionInfos(championId, championName, championIcon, championNameCompact, passive, spells, championRoles, championHp, championMs, championArmor, championAr, championAd, championAs, championLore);
 
     print("Chargement du champion terminé !");
 
