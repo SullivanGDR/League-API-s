@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppBar extends StatelessWidget {
-
   final Color colorGrey = const Color(0xFFA09B8C);
   final Color colorBlue = const Color(0xFF005A82);
 
@@ -57,7 +56,6 @@ class MyAppBar extends StatelessWidget {
 }
 
 class MyBottomAppBar extends StatelessWidget {
-
   final Color colorGrey = const Color(0xFFA09B8C);
   final Color colorBlue = const Color(0xFF005A82);
 
@@ -76,20 +74,23 @@ class MyBottomAppBar extends StatelessWidget {
                 Navigator.pushReplacement(
                     context,
                     PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) => const MyHomePage(),
-                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                const begin = 0.0;
-                const end = 1.0;
-                const curve = Curves.easeInOut;
-                var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                var fadeAnimation = animation.drive(tween);
-                return FadeTransition(
-                opacity: fadeAnimation,
-                child: child,
-                );
-                },
-                ));
-                },
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const MyHomePage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = 0.0;
+                        const end = 1.0;
+                        const curve = Curves.easeInOut;
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+                        var fadeAnimation = animation.drive(tween);
+                        return FadeTransition(
+                          opacity: fadeAnimation,
+                          child: child,
+                        );
+                      },
+                    ));
+              },
               icon: const Icon(CupertinoIcons.house_fill),
               color: colorGrey),
           IconButton(
@@ -97,12 +98,15 @@ class MyBottomAppBar extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) => const FabricationPage(),
-                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const FabricationPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
                       const begin = 0.0;
                       const end = 1.0;
                       const curve = Curves.easeInOut;
-                      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                      var tween = Tween(begin: begin, end: end)
+                          .chain(CurveTween(curve: curve));
                       var fadeAnimation = animation.drive(tween);
                       return FadeTransition(
                         opacity: fadeAnimation,

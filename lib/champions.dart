@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:lol_api/championInfos.dart';
 import 'package:lol_api/class/championsRota.dart';
 import 'package:lol_api/main.dart';
@@ -17,9 +18,9 @@ class _FabricationPage extends State<FabricationPage> {
   Color colorBlue = const Color(0xFF005A82);
 
   @override
-
   void initState() {
     super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     loadApi();
   }
 
@@ -49,7 +50,7 @@ class _FabricationPage extends State<FabricationPage> {
       ),
       backgroundColor: const Color(0xFF091428),
       body: GridView.builder(
-        padding: const EdgeInsets.only(top:10, bottom: 10),
+        padding: const EdgeInsets.only(top: 10, bottom: 10),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           crossAxisSpacing: 8.0,
@@ -62,41 +63,42 @@ class _FabricationPage extends State<FabricationPage> {
           // Normalisation du nom du champion pour l'utiliser dans l'URL
           String normalizedChampionName = champion.getIcon();
 
-          String imageUrl = 'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/champion/$normalizedChampionName';
+          String imageUrl =
+              'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/champion/$normalizedChampionName';
 
           return InkWell(
               onTap: () {
-            // Permet d'ouvrir une nouvelle page avec des données en paramètre
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ChampionInfoPage(
-                  champion: champion,
-                ),
-              ),
-            );
-          },
-          child: Column(
-            children: [
-              Expanded(
-                child: Image.network(
-                  imageUrl, // Remplacez par l'URL de votre image
-                  width: double.infinity,
-                  fit: BoxFit.contain,
-                ),
-              ),
-              Text(
-                  champion.getNom(),
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    overflow: TextOverflow.fade,
-                    fontFamily: 'LoLFont',
-                    color: colorGrey,
+                // Permet d'ouvrir une nouvelle page avec des données en paramètre
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChampionInfoPage(
+                      champion: champion,
+                    ),
                   ),
-                ),
-            ],
-          ));
+                );
+              },
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Image.network(
+                      imageUrl, // Remplacez par l'URL de votre image
+                      width: double.infinity,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  Text(
+                    champion.getNom(),
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.fade,
+                      fontFamily: 'LoLFont',
+                      color: colorGrey,
+                    ),
+                  ),
+                ],
+              ));
         },
       ),
       bottomNavigationBar: const MyBottomAppBar(),
