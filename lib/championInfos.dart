@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:lol_api/class/championsInfos.dart';
 import 'package:lol_api/class/championsRota.dart';
@@ -68,14 +67,14 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
   }
 
   void initPassive() async {
-    passiveName = await championInfo.getPassive().getName();
-    passiveDescription = await (championInfo.getPassive().getDescription())
-        .replaceAll('<br>', ' ');
-    passiveImg = await championInfo.getPassive().getIcon();
+    passiveName = championInfo.getPassive().getName();
+    passiveDescription =
+        (championInfo.getPassive().getDescription()).replaceAll('<br>', ' ');
+    passiveImg = championInfo.getPassive().getIcon();
   }
 
   void initSpells() async {
-    List<ChampionSpells> spells = await championInfo.getSpells();
+    List<ChampionSpells> spells = championInfo.getSpells();
 
     if (spells.isNotEmpty) {
       for (ChampionSpells spell in spells) {
@@ -207,7 +206,8 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                     color: Color(0xFF091428),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 20, left: 20),
+                                    padding: const EdgeInsets.only(
+                                        top: 20, left: 20),
                                     child: Column(
                                       children: [
                                         Row(
@@ -242,7 +242,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                             )
                                           ],
                                         ),
-                                        Padding(
+                                        const Padding(
                                             padding: EdgeInsets.only(top: 20)),
                                         Row(
                                           children: [
@@ -299,7 +299,8 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                     color: Color(0xFF091428),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 20, left: 20),
+                                    padding: const EdgeInsets.only(
+                                        top: 20, left: 20),
                                     child: Column(
                                       children: [
                                         Row(
@@ -396,7 +397,8 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                     color: Color(0xFF091428),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 20, left: 20),
+                                    padding: const EdgeInsets.only(
+                                        top: 20, left: 20),
                                     child: Column(
                                       children: [
                                         Row(
@@ -493,7 +495,8 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                     color: Color(0xFF091428),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 20, left: 20),
+                                    padding: const EdgeInsets.only(
+                                        top: 20, left: 20),
                                     child: Column(
                                       children: [
                                         Row(
@@ -590,7 +593,8 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                     color: Color(0xFF091428),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 20, left: 20),
+                                    padding: const EdgeInsets.only(
+                                        top: 20, left: 20),
                                     child: Column(
                                       children: [
                                         Row(
@@ -674,7 +678,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(top: 20, left: 15),
+            padding: const EdgeInsets.only(top: 20, left: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -703,22 +707,32 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                         fontFamily: 'LoLFontBold',
                         color: Colors.grey,
                         fontSize: 20)),
-                Padding(padding: EdgeInsets.only(top: 15)),
+                const Padding(padding: EdgeInsets.only(top: 15)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('HP : ${championInfo.getHp()}',
-                            style: const TextStyle(
-                                fontFamily: 'LoLFontBold',
-                                color: Colors.grey,
-                                fontSize: 15)),
                         Row(
                           children: [
                             Image.asset(
-                                'assets/images/stats-icon/Armor_icon.webp'),
+                              'assets/images/stats-icon/Health_icon.webp',
+                              color: Colors.green,
+                            ),
+                            Text('  : ${championInfo.getHp()}',
+                                style: const TextStyle(
+                                    fontFamily: 'LoLFontBold',
+                                    color: Colors.grey,
+                                    fontSize: 15)),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Image.asset(
+                              'assets/images/stats-icon/Armor_icon.webp',
+                              color: Colors.redAccent,
+                            ),
                             Text('  : ${championInfo.getArmor()}',
                                 style: const TextStyle(
                                     fontFamily: 'LoLFontBold',
@@ -742,15 +756,25 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Range : ${championInfo.getAttackRange()}',
-                            style: const TextStyle(
-                                fontFamily: 'LoLFontBold',
-                                color: Colors.grey,
-                                fontSize: 15)),
                         Row(
                           children: [
                             Image.asset(
-                                'assets/images/stats-icon/Attack_damage_icon.webp'),
+                              'assets/images/stats-icon/Range_icon.webp',
+                              color: Colors.blueAccent,
+                            ),
+                            Text('  : ${championInfo.getAttackRange()}',
+                                style: const TextStyle(
+                                    fontFamily: 'LoLFontBold',
+                                    color: Colors.grey,
+                                    fontSize: 15)),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Image.asset(
+                              'assets/images/stats-icon/Attack_damage_icon.webp',
+                              color: Colors.deepOrangeAccent,
+                            ),
                             Text('  : ${championInfo.getAttackDamage()}',
                                 style: const TextStyle(
                                     fontFamily: 'LoLFontBold',
@@ -761,7 +785,9 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                         Row(
                           children: [
                             Image.asset(
-                                'assets/images/stats-icon/Attack_speed_icon.webp'),
+                              'assets/images/stats-icon/Attack_speed_icon.webp',
+                              color: Colors.orangeAccent,
+                            ),
                             Text('  : ${championInfo.getAttackSpeed()}',
                                 style: const TextStyle(
                                     fontFamily: 'LoLFontBold',
