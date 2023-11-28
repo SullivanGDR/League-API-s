@@ -19,8 +19,8 @@ class ChampionInfoPage extends StatefulWidget {
 class _ChampionInfoPageState extends State<ChampionInfoPage> {
   List<ChampionSpells> allSpells = [];
 
-  ChampionInfos championInfo = ChampionInfos(
-      '', '', '', '', ChampionPassive('', '', ''), [], [], 0, 0, 0, 0, 0, 0, "");
+  ChampionInfos championInfo = ChampionInfos('', '', '', '',
+      ChampionPassive('', '', ''), [], [], 0, 0, 0, 0, 0, 0, "");
 
   Color colorGrey = const Color(0xFFA09B8C);
   Color colorBlue = const Color(0xFF005A82);
@@ -55,7 +55,6 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     chargement();
   }
 
@@ -217,23 +216,23 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                             children: [
                                               ClipRRect(
                                                 borderRadius:
-                                                BorderRadius.circular(16.0),
+                                                    BorderRadius.circular(16.0),
                                                 child: Image.network(
                                                   'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/passive/$passiveImg',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
                                               const Padding(
-                                                  padding:
-                                                  EdgeInsets.only(left: 10)),
+                                                  padding: EdgeInsets.only(
+                                                      left: 10)),
                                               Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(passiveName,
                                                       style: TextStyle(
                                                           fontFamily:
-                                                          'LoLFontBold',
+                                                              'LoLFontBold',
                                                           color: colorGrey,
                                                           fontSize: 20)),
                                                   Text('Compétence passive',
@@ -246,7 +245,8 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                             ],
                                           ),
                                           const Padding(
-                                              padding: EdgeInsets.only(top: 20)),
+                                              padding:
+                                                  EdgeInsets.only(top: 20)),
                                           Row(
                                             children: [
                                               Flexible(
@@ -310,23 +310,23 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                             children: [
                                               ClipRRect(
                                                 borderRadius:
-                                                BorderRadius.circular(16.0),
+                                                    BorderRadius.circular(16.0),
                                                 child: Image.network(
                                                   'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/$spellQIcon',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
                                               const Padding(
-                                                  padding:
-                                                  EdgeInsets.only(left: 10)),
+                                                  padding: EdgeInsets.only(
+                                                      left: 10)),
                                               Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(spellQName,
                                                       style: TextStyle(
                                                           fontFamily:
-                                                          'LoLFontBold',
+                                                              'LoLFontBold',
                                                           color: colorGrey,
                                                           fontSize: 20)),
                                                   Text('Compétence 1',
@@ -345,7 +345,8 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                             ],
                                           ),
                                           const Padding(
-                                              padding: EdgeInsets.only(top: 20)),
+                                              padding:
+                                                  EdgeInsets.only(top: 20)),
                                           Row(
                                             children: [
                                               Flexible(
@@ -382,6 +383,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                 fontFamily: 'LoLFontBold', color: Colors.grey)),
                       ],
                     ),
+                    // INFORMATIONS DU W SPELL
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -408,23 +410,23 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                             children: [
                                               ClipRRect(
                                                 borderRadius:
-                                                BorderRadius.circular(16.0),
+                                                    BorderRadius.circular(16.0),
                                                 child: Image.network(
                                                   'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/$spellWIcon',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
                                               const Padding(
-                                                  padding:
-                                                  EdgeInsets.only(left: 10)),
+                                                  padding: EdgeInsets.only(
+                                                      left: 10)),
                                               Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(spellWName,
                                                       style: TextStyle(
                                                           fontFamily:
-                                                          'LoLFontBold',
+                                                              'LoLFontBold',
                                                           color: colorGrey,
                                                           fontSize: 20)),
                                                   Text('Compétence 2',
@@ -443,7 +445,8 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                             ],
                                           ),
                                           const Padding(
-                                              padding: EdgeInsets.only(top: 20)),
+                                              padding:
+                                                  EdgeInsets.only(top: 20)),
                                           Row(
                                             children: [
                                               Flexible(
@@ -480,6 +483,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                 fontFamily: 'LoLFontBold', color: Colors.grey)),
                       ],
                     ),
+                    // INFORMATIONS DU E SPELL
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -506,23 +510,23 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                             children: [
                                               ClipRRect(
                                                 borderRadius:
-                                                BorderRadius.circular(16.0),
+                                                    BorderRadius.circular(16.0),
                                                 child: Image.network(
                                                   'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/$spellEIcon',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
                                               const Padding(
-                                                  padding:
-                                                  EdgeInsets.only(left: 10)),
+                                                  padding: EdgeInsets.only(
+                                                      left: 10)),
                                               Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(spellEName,
                                                       style: TextStyle(
                                                           fontFamily:
-                                                          'LoLFontBold',
+                                                              'LoLFontBold',
                                                           color: colorGrey,
                                                           fontSize: 20)),
                                                   Text('Compétence 3',
@@ -541,7 +545,8 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                             ],
                                           ),
                                           const Padding(
-                                              padding: EdgeInsets.only(top: 20)),
+                                              padding:
+                                                  EdgeInsets.only(top: 20)),
                                           Row(
                                             children: [
                                               Flexible(
@@ -578,6 +583,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                 fontFamily: 'LoLFontBold', color: Colors.grey)),
                       ],
                     ),
+                    // INFORMATIONS DE L\'ultime
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -604,23 +610,23 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                             children: [
                                               ClipRRect(
                                                 borderRadius:
-                                                BorderRadius.circular(16.0),
+                                                    BorderRadius.circular(16.0),
                                                 child: Image.network(
                                                   'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/$spellRIcon',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
                                               const Padding(
-                                                  padding:
-                                                  EdgeInsets.only(left: 10)),
+                                                  padding: EdgeInsets.only(
+                                                      left: 10)),
                                               Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(spellRName,
                                                       style: TextStyle(
                                                           fontFamily:
-                                                          'LoLFontBold',
+                                                              'LoLFontBold',
                                                           color: colorGrey,
                                                           fontSize: 20)),
                                                   Text('Compétence ultime',
@@ -639,7 +645,8 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                             ],
                                           ),
                                           const Padding(
-                                              padding: EdgeInsets.only(top: 20)),
+                                              padding:
+                                                  EdgeInsets.only(top: 20)),
                                           Row(
                                             children: [
                                               Flexible(
@@ -680,8 +687,10 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                 )
               ],
             ),
+            // INFORMATIONS DU CHAMPIONS (STATS DE BASE)
             Padding(
-              padding: const EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 10),
+              padding: const EdgeInsets.only(
+                  top: 20, left: 15, right: 15, bottom: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -801,6 +810,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                       )
                     ],
                   ),
+                  // LORE DU CHAMPION
                   Text('Lore :',
                       style: TextStyle(
                           fontFamily: 'LoLFontBold',

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lol_api/champions.dart';
+import 'package:lol_api/collections.dart';
 import 'package:lol_api/homepage.dart';
+import 'package:lol_api/reglages.dart';
 import 'package:lol_api/splashscreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lol_api/champions_icon_icons.dart';
@@ -48,7 +50,7 @@ class MyAppBar extends StatelessWidget {
       ),
       actions: [
         IconButton(
-            icon: Icon(CupertinoIcons.bars, color: colorGrey, size: 30.0),
+            icon: Icon(CupertinoIcons.person, color: colorGrey, size: 30.0),
             onPressed: () {}),
       ],
     );
@@ -121,11 +123,51 @@ class MyBottomAppBar extends StatelessWidget {
             color: colorGrey,
           ),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const CollectionsPage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = 0.0;
+                        const end = 1.0;
+                        const curve = Curves.easeInOut;
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+                        var fadeAnimation = animation.drive(tween);
+                        return FadeTransition(
+                          opacity: fadeAnimation,
+                          child: child,
+                        );
+                      },
+                    ));
+              },
               icon: const Icon(CupertinoIcons.collections_solid),
               color: colorGrey),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const SettingsPage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = 0.0;
+                        const end = 1.0;
+                        const curve = Curves.easeInOut;
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+                        var fadeAnimation = animation.drive(tween);
+                        return FadeTransition(
+                          opacity: fadeAnimation,
+                          child: child,
+                        );
+                      },
+                    ));
+              },
               icon: const Icon(CupertinoIcons.gear_alt_fill),
               color: colorGrey),
         ],
