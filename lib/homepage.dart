@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:lol_api/champions_icon_icons.dart';
 import 'package:lol_api/class/championsRota.dart';
 import 'package:lol_api/main.dart';
+import 'package:searchfield/searchfield.dart';
+
+import 'championInfos.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -20,7 +23,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String searchField = "";
 
   @override
-
   void initState() {
     super.initState();
     chargement();
@@ -61,8 +63,15 @@ class _MyHomePageState extends State<MyHomePage> {
             margin: const EdgeInsets.only(top: 10, left: 8, right: 8),
             padding: const EdgeInsets.all(10),
             height: 55,
-            child: TextFormField(
-              decoration: InputDecoration(
+            child: SearchField<Champion>(
+              suggestionItemDecoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: colorGrey,
+                  ),
+                ),
+              ),
+              searchInputDecoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: colorGrey),
                   ),
@@ -72,13 +81,70 @@ class _MyHomePageState extends State<MyHomePage> {
                   labelStyle:
                       TextStyle(color: colorGrey, fontFamily: 'LoLFont'),
                   labelText: "Rechercher un champion"),
-              validator: (valeur) {
-                if (valeur == null || valeur.isEmpty) {
-                  return 'Veuillez entrer la moyenne EBC des grains';
-                } else {
-                  return searchField = valeur.toString();
-                }
-              },
+              suggestions: _champions
+                  .map(
+                    (e) => SearchFieldListItem<Champion>(e.getNom(),
+                        item: e,
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChampionInfoPage(
+                                    champion: e,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(6.0),
+                              child: Row(
+                                children: [
+                                  Image.network(
+                                      'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/champion/${e.getIcon()}'),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(e.getNom(),
+                                      style: TextStyle(
+                                          fontFamily: 'LoLFontBold',
+                                          color: colorGrey,
+                                          fontSize: 20)),
+                                ],
+                              ),
+                            ))
+
+                        /*Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChampionInfoPage(
+                                    champion: e,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Image.network(
+                                    'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/champion/${e.getIcon()}'),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(e.getNom(),
+                                    style: TextStyle(
+                                        fontFamily: 'LoLFontBold',
+                                        color: colorGrey,
+                                        fontSize: 20)),
+                              ],
+                            ),
+                          )),*/
+                        ),
+                  )
+                  .toList(),
             ),
           ),
           Container(
@@ -99,25 +165,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 const Padding(padding: EdgeInsets.only(bottom: 5)),
-                /*Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: _champions.map((champion) =>
-                          Card(
-                            child: ListTile(
-                              title: Text('ID: ${champion.getId()}'),
-                              subtitle: Text('Nom: ${champion.getNom()}'),
-                              // Ajoute d'autres widgets pour afficher d'autres détails du champion si nécessaire
-                            ),
-                          ),
-                      ).toList(),
-                    ),
-                  ),
-                ),*/
               ],
             ),
           ),
-
         ],
       ),
       bottomNavigationBar: const MyBottomAppBar(),

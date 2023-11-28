@@ -17,7 +17,21 @@ class ChampionInfos {
   final double _attackspeed;
   final String _lore;
 
-  ChampionInfos(this._id, this._nom, this._icon, this._nomCompact, this._passive, this._spells, this._role, this._hp, this._movespeed, this._armor, this._attackrange, this._attackdamage, this._attackspeed, this._lore);
+  ChampionInfos(
+      this._id,
+      this._nom,
+      this._icon,
+      this._nomCompact,
+      this._passive,
+      this._spells,
+      this._role,
+      this._hp,
+      this._movespeed,
+      this._armor,
+      this._attackrange,
+      this._attackdamage,
+      this._attackspeed,
+      this._lore);
 
   String getId() {
     return _id;
@@ -44,30 +58,30 @@ class ChampionInfos {
   }
 
   String getRole() {
-    return _role.toString().substring(1, _role.toString().length-1);
+    return _role.toString().substring(1, _role.toString().length - 1);
   }
 
-  int getHp(){
+  int getHp() {
     return _hp;
   }
 
-  int getMoveSpeed(){
+  int getMoveSpeed() {
     return _movespeed;
   }
 
-  int getArmor(){
+  int getArmor() {
     return _armor;
   }
 
-  int getAttackRange(){
+  int getAttackRange() {
     return _attackrange;
   }
 
-  int getAttackDamage(){
+  int getAttackDamage() {
     return _attackdamage;
   }
 
-  double getAttackSpeed(){
+  double getAttackSpeed() {
     return _attackspeed;
   }
 
@@ -129,11 +143,13 @@ Future<ChampionInfos> initTest(String nomChampion) async {
     "Accept-Charset": "UTF-8",
   };
 
-  final uri = Uri.http(baseUrl, '/cdn/13.23.1/data/fr_FR/champion/$nomChampion.json');
+  final uri =
+      Uri.http(baseUrl, '/cdn/13.23.1/data/fr_FR/champion/$nomChampion.json');
   final response = await http.get(uri, headers: header);
 
   if (response.statusCode == 200) {
-    final Map<String, dynamic> data = json.decode(utf8.decode(response.bodyBytes));
+    final Map<String, dynamic> data =
+        json.decode(utf8.decode(response.bodyBytes));
     final Map<String, dynamic> championData = data['data'][nomChampion];
 
     final String championId = championData['key'];
@@ -166,13 +182,25 @@ Future<ChampionInfos> initTest(String nomChampion) async {
       spells.add(spellInfo);
     }
 
-    ChampionInfos champion = ChampionInfos(championId, championName, championIcon, championNameCompact, passive, spells, championRoles, championHp, championMs, championArmor, championAr, championAd, championAs, championLore);
+    ChampionInfos champion = ChampionInfos(
+        championId,
+        championName,
+        championIcon,
+        championNameCompact,
+        passive,
+        spells,
+        championRoles,
+        championHp,
+        championMs,
+        championArmor,
+        championAr,
+        championAd,
+        championAs,
+        championLore);
 
     print("Chargement du champion terminé !");
 
-
     return champion;
-
   } else {
     print("Error: ${response.statusCode} - ${response.reasonPhrase}");
     throw Exception('Échec du chargement du champion');

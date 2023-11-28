@@ -20,7 +20,6 @@ class _FabricationPage extends State<FabricationPage> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     loadApi();
   }
 
@@ -35,7 +34,7 @@ class _FabricationPage extends State<FabricationPage> {
       appBar: AppBar(
         backgroundColor: Colors.white12,
         title: Text(
-          'LOL.GG',
+          'Champions',
           style: TextStyle(
             color: colorGrey,
             fontSize: 30,
