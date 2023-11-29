@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lol_api/class/champion.dart';
+import 'package:lol_api/class/champion_infos.dart';
 import 'package:lol_api/class/champion_passive.dart';
 import 'package:lol_api/class/champion_spells.dart';
 import 'package:lol_api/functions/champion_infos_API.dart';
