@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:lol_api/class/championsInfos.dart';
-import 'package:lol_api/class/championsRota.dart';
+import 'package:lol_api/class/champion.dart';
+import 'package:lol_api/class/champion_passive.dart';
+import 'package:lol_api/class/champion_spells.dart';
+import 'package:lol_api/functions/champion_infos_API.dart';
 import 'package:lol_api/main.dart';
 
 class ChampionInfoPage extends StatefulWidget {

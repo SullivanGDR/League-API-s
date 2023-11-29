@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lol_api/champions_icon_icons.dart';
-import 'package:lol_api/class/championsRota.dart';
+import 'package:lol_api/class/champion.dart';
+import 'package:lol_api/functions/all_champions_API.dart';
 import 'package:lol_api/main.dart';
 import 'package:searchfield/searchfield.dart';
 
-import 'championInfos.dart';
+import 'champion_infos_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});

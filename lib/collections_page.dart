@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
-import 'package:lol_api/championInfos.dart';
-import 'package:lol_api/class/championsRota.dart';
 import 'package:lol_api/main.dart';
 
 class CollectionsPage extends StatefulWidget {

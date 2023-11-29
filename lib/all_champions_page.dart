@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
-import 'package:lol_api/championInfos.dart';
-import 'package:lol_api/class/championsRota.dart';
+import 'package:lol_api/champion_infos_page.dart';
+import 'package:lol_api/class/champion.dart';
+import 'package:lol_api/functions/all_champions_API.dart';
 import 'package:lol_api/main.dart';
 
 class FabricationPage extends StatefulWidget {

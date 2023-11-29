@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lol_api/champions.dart';
-import 'package:lol_api/collections.dart';
-import 'package:lol_api/homepage.dart';
-import 'package:lol_api/splashscreen.dart';
+import 'package:lol_api/all_champions_page.dart';
+import 'package:lol_api/collections_page.dart';
+import 'package:lol_api/home_page.dart';
+import 'package:lol_api/settings_page.dart';
+import 'package:lol_api/splashscreen_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lol_api/champions_icon_icons.dart';
 
@@ -146,7 +147,27 @@ class MyBottomAppBar extends StatelessWidget {
               icon: const Icon(CupertinoIcons.collections_solid),
               color: colorGrey),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const SettingsPage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = 0.0;
+                        const end = 1.0;
+                        const curve = Curves.easeInOut;
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+                        var fadeAnimation = animation.drive(tween);
+                        return FadeTransition(
+                          opacity: fadeAnimation,
+                          child: child,
+                        );
+                      },
+                    ));
+              },
               icon: const Icon(CupertinoIcons.gear_alt_fill),
               color: colorGrey),
         ],
