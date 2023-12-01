@@ -54,6 +54,8 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
 
   String role = "";
 
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -65,7 +67,9 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
     initSpells();
     initPassive();
     roles();
-    setState(() {});
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   void initPassive() async {
@@ -142,7 +146,19 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF091428),
+      body: _isLoading
+          ? const Center(
+        child: CircularProgressIndicator(),
+      )
+          : _buildContent(),
+    );
+  }
+
+  Widget _buildContent() {
     return Scaffold(
       backgroundColor: const Color(0xFF091428),
       body: SingleChildScrollView(

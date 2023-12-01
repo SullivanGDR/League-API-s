@@ -17,6 +17,8 @@ class _FabricationPage extends State<FabricationPage> {
   Color colorGrey = const Color(0xFFA09B8C);
   Color colorBlue = const Color(0xFF005A82);
 
+  bool _isLoading = true; // Nouvel état de chargement
+
   @override
   void initState() {
     super.initState();
@@ -25,12 +27,17 @@ class _FabricationPage extends State<FabricationPage> {
 
   void loadApi() async {
     _champions = await initListChampions(_champions);
-    setState(() {});
+
+    // Mettez à jour l'état pour indiquer que le chargement est terminé
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF091428),
       appBar: AppBar(
         backgroundColor: Colors.white12,
         title: Text(
@@ -47,6 +54,16 @@ class _FabricationPage extends State<FabricationPage> {
               onPressed: () {}),
         ],
       ),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+      )
+          : _buildContent(),
+    );
+  }
+
+  Widget _buildContent() {
+    return Scaffold(
       backgroundColor: const Color(0xFF091428),
       body: GridView.builder(
         padding: const EdgeInsets.only(top: 10, bottom: 10),
