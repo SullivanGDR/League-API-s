@@ -236,7 +236,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                                 borderRadius:
                                                     BorderRadius.circular(16.0),
                                                 child: Image.network(
-                                                  'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/passive/$passiveImg',
+                                                  'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/passive/$passiveImg',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
@@ -291,7 +291,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                               ),
                             ),
                             child: Image.network(
-                              'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/passive/$passiveImg',
+                              'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/passive/$passiveImg',
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -330,7 +330,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                                 borderRadius:
                                                     BorderRadius.circular(16.0),
                                                 child: Image.network(
-                                                  'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/$spellQIcon',
+                                                  'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/$spellQIcon',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
@@ -391,7 +391,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                               ),
                             ),
                             child: Image.network(
-                              'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/$spellQIcon',
+                              'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/$spellQIcon',
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -430,7 +430,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                                 borderRadius:
                                                     BorderRadius.circular(16.0),
                                                 child: Image.network(
-                                                  'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/$spellWIcon',
+                                                  'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/$spellWIcon',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
@@ -491,7 +491,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                               ),
                             ),
                             child: Image.network(
-                              'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/$spellWIcon',
+                              'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/$spellWIcon',
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -530,7 +530,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                                 borderRadius:
                                                     BorderRadius.circular(16.0),
                                                 child: Image.network(
-                                                  'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/$spellEIcon',
+                                                  'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/$spellEIcon',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
@@ -591,7 +591,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                               ),
                             ),
                             child: Image.network(
-                              'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/$spellEIcon',
+                              'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/$spellEIcon',
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -630,7 +630,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                                                 borderRadius:
                                                     BorderRadius.circular(16.0),
                                                 child: Image.network(
-                                                  'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/$spellRIcon',
+                                                  'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/$spellRIcon',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
@@ -691,7 +691,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
                               ),
                             ),
                             child: Image.network(
-                              'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/$spellRIcon',
+                              'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/$spellRIcon',
                               fit: BoxFit.contain,
                             ),
                           ),

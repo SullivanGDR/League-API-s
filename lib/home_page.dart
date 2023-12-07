@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   prefixIconColor: colorGrey,
                   labelStyle:
                       TextStyle(color: colorGrey, fontFamily: 'LoLFont'),
-                  labelText: "Rechercher un champion"),
+                  labelText: "Rechercher un invocateur"),
               suggestions: _champions
                   .map(
                     (e) => SearchFieldListItem<Champion>(e.getNom(),

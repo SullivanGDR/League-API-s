@@ -14,6 +14,8 @@ class FabricationPage extends StatefulWidget {
 
 class _FabricationPage extends State<FabricationPage> {
   List<Champion> _champions = [];
+  List<Champion> _searchResults = [];
+
   Color colorGrey = const Color(0xFFA09B8C);
   Color colorBlue = const Color(0xFF005A82);
 
@@ -27,10 +29,20 @@ class _FabricationPage extends State<FabricationPage> {
 
   void loadApi() async {
     _champions = await initListChampions(_champions);
+    _searchResults = _champions;
 
     // Mettez à jour l'état pour indiquer que le chargement est terminé
     setState(() {
       _isLoading = false;
+    });
+  }
+
+  void searchChampions(String query) {
+    setState(() {
+      _searchResults = _champions
+          .where((champion) =>
+          champion.getNomCompact().toLowerCase().contains(query.toLowerCase()))
+          .toList();
     });
   }
 
@@ -39,7 +51,8 @@ class _FabricationPage extends State<FabricationPage> {
     return Scaffold(
       backgroundColor: const Color(0xFF091428),
       appBar: AppBar(
-        backgroundColor: Colors.white12,
+        backgroundColor: Colors.white10,
+        elevation: 0,
         title: Text(
           'Champions',
           style: TextStyle(
@@ -65,57 +78,83 @@ class _FabricationPage extends State<FabricationPage> {
   Widget _buildContent() {
     return Scaffold(
       backgroundColor: const Color(0xFF091428),
-      body: GridView.builder(
-        padding: const EdgeInsets.only(top: 10, bottom: 10),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
-        ),
-        itemCount: _champions.length,
-        itemBuilder: (context, index) {
-          Champion champion = _champions[index];
+      body: Column(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadiusDirectional.only(bottomStart: Radius.circular(10.0), bottomEnd: Radius.circular(10.0)),
+              color: Colors.white10,
+            ),
+            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+            height: 50,
+            child: TextField(
+              onChanged: (query) => searchChampions(query),
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: colorGrey),
+                ),
+                border: const OutlineInputBorder(),
+                prefixIcon: const Icon(CupertinoIcons.search),
+                prefixIconColor: colorGrey,
+                labelStyle: TextStyle(color: colorGrey, fontFamily: 'LoLFont'),
+                labelText: "Rechercher un champion",
+              ),
+            ),
+          ),
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 8.0,
+              ),
+              itemCount: _searchResults.length,
+              itemBuilder: (context, index) {
+                Champion champion = _searchResults[index];
 
-          // Normalisation du nom du champion pour l'utiliser dans l'URL
-          String normalizedChampionName = champion.getIcon();
+                String normalizedChampionName = champion.getIcon();
 
-          String imageUrl =
-              'https://ddragon.leagueoflegends.com/cdn/13.23.1/img/champion/$normalizedChampionName';
+                String imageUrl =
+                    'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/$normalizedChampionName';
 
-          return InkWell(
-              onTap: () {
-                // Permet d'ouvrir une nouvelle page avec des données en paramètre
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChampionInfoPage(
-                      champion: champion,
-                    ),
+                return InkWell(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChampionInfoPage(
+                          champion: champion,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Image.network(
+                          imageUrl,
+                          width: double.infinity,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      Text(
+                        champion.getNom(),
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.fade,
+                          fontFamily: 'LoLFont',
+                          color: colorGrey,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Image.network(
-                      imageUrl, // Remplacez par l'URL de votre image
-                      width: double.infinity,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  Text(
-                    champion.getNom(),
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      overflow: TextOverflow.fade,
-                      fontFamily: 'LoLFont',
-                      color: colorGrey,
-                    ),
-                  ),
-                ],
-              ));
-        },
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: const MyBottomAppBar(),
     );

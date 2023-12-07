@@ -13,7 +13,7 @@ Future<ChampionInfos> initTest(String nomChampion) async {
   };
 
   final uri =
-      Uri.http(baseUrl, '/cdn/13.23.1/data/fr_FR/champion/$nomChampion.json');
+      Uri.http(baseUrl, '/cdn/13.24.1/data/fr_FR/champion/$nomChampion.json');
   final response = await http.get(uri, headers: header);
 
   if (response.statusCode == 200) {

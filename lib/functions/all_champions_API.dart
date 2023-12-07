@@ -8,7 +8,7 @@ Future<List<Champion>> initListChampions(List<Champion> listeChampions) async {
     "Content-type": "application/json; charset=UTF-8",
     "Accept": 'application/json',
   };
-  final uri = Uri.http(baseUrl, '/cdn/13.23.1/data/en_US/champion.json');
+  final uri = Uri.http(baseUrl, '/cdn/13.24.1/data/en_US/champion.json');
 
   final response = await http.get(uri, headers: header);
 
