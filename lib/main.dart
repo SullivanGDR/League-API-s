@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:lol_api/all_champions_page.dart';
+import 'package:lol_api/class/database.dart';
 import 'package:lol_api/collections_page.dart';
 import 'package:lol_api/home_page.dart';
 import 'package:lol_api/settings_page.dart';
 import 'package:lol_api/splashscreen_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lol_api/champions_icon_icons.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialise la base de données et les collections
+  await initDatabaseAndCollections();
+
+  runApp(MyApp());
+}
+
+Future<void> initDatabaseAndCollections() async {
+  var dbCollections = DatabaseCollections();
+  var database = await dbCollections.db;
+
+  await dbCollections.createCollectionsTables(database!);
+  dbCollections.printDatabaseContents();
 }
 
 class MyApp extends StatelessWidget {

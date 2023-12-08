@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:lol_api/class/champion.dart';
 import 'package:lol_api/class/champion_infos.dart';
 import 'package:lol_api/class/champion_passive.dart';
 import 'package:lol_api/class/champion_spells.dart';
+import 'package:lol_api/class/database.dart';
 import 'package:lol_api/functions/champion_infos_API.dart';
 import 'package:lol_api/main.dart';
 
@@ -144,6 +146,61 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
         // Retourne une image par défaut si le rôle n'est pas reconnu
         return 'assets/images/default.png';
     }
+  }
+
+  void addChampionToCollectionButton(String nomCollection, Champion champion) async {
+    var dbHelper = DatabaseCollections();
+
+    bool ajoutReussi = await dbHelper.addChampionToCollection(nomCollection, champion);
+
+    final scaffold = ScaffoldMessenger.of(context);
+
+    if (ajoutReussi) {
+      scaffold.showSnackBar(
+        SnackBar(
+          backgroundColor: colorGold,
+          content: Text("Ajout de ${champion.getNom()} dans la collection $nomCollection."),
+        ),
+      );
+    } else {
+      scaffold.showSnackBar(
+        SnackBar(
+          backgroundColor: colorGold,
+          content: Text("${champion.getNom()} est déjà dans la collection $nomCollection."),
+        ),
+      );
+    }
+  }
+
+
+
+
+  SpeedDial _buildSpeedDial() {
+    return SpeedDial(
+      animatedIcon: AnimatedIcons.menu_close,
+      animatedIconTheme: IconThemeData(size: 22.0),
+      backgroundColor: colorBlue,
+      foregroundColor: Colors.white,
+      children: [
+        _buildSpeedDialChild('Favoris'),
+        _buildSpeedDialChild('Support'),
+        _buildSpeedDialChild('ADC'),
+        _buildSpeedDialChild('MID'),
+        _buildSpeedDialChild('JGL'),
+        _buildSpeedDialChild('TOP'),
+      ],
+    );
+  }
+
+  SpeedDialChild _buildSpeedDialChild(String collectionName) {
+    return SpeedDialChild(
+      child: Icon(Icons.playlist_add),
+      backgroundColor: colorBlue,
+      label: 'Ajouter à $collectionName',
+      onTap: () {
+        addChampionToCollectionButton(collectionName, widget.champion);
+      },
+    );
   }
 
   @override
@@ -852,6 +909,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
           ],
         ),
       ),
+      floatingActionButton: _buildSpeedDial(),
       bottomNavigationBar: const MyBottomAppBar(),
     );
   }

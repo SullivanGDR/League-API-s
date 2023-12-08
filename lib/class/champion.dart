@@ -1,24 +1,38 @@
 class Champion {
-  final int _id;
-  final String _nom;
-  final String _icon;
-  final String _nomCompact;
+  final int id;
+  final String nom;
+  final String icon;
+  final String nomCompact;
 
-  Champion(this._id, this._nom, this._icon, this._nomCompact);
+  const Champion({
+    required this.id,
+    required this.nom,
+    required this.icon,
+    required this.nomCompact,
+  });
 
   int getId() {
-    return _id;
+    return id;
   }
 
   String getNom() {
-    return _nom;
+    return nom;
   }
 
   String getIcon() {
-    return _icon;
+    return icon;
   }
 
   String getNomCompact() {
-    return _nomCompact;
+    return nomCompact;
+  }
+
+  Map<String, Object?> toMap() {
+    return {
+      'id': id,
+      'nom': nom,
+      'icon': icon,
+      'nomCompact': nomCompact
+    };
   }
 }
