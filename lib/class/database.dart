@@ -3,13 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DatabaseCollections {
-  static final DatabaseCollections _instance = DatabaseCollections.internal();
-
-  factory DatabaseCollections() => _instance;
-
   static Database? _db;
-
-  DatabaseCollections.internal();
 
   Future<Database?> get db async {
     if (_db != null) {
@@ -20,72 +14,19 @@ class DatabaseCollections {
   }
 
   Future<Database> initDb() async {
-    String databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'lolCollections.db');
-
-    var db = await openDatabase(path, version: 1, onCreate: _onCreate);
+    final db = await openDatabase(
+        join(await getDatabasesPath(), 'lolCollections.db'),
+        onCreate: (db, version) {
+          db.execute('''CREATE TABLE IF NOT EXISTS TOP (id INTEGER PRIMARY KEYnom TEXT, icon TEXT, nomCompact TEXT)''');
+          db.execute('''CREATE TABLE IF NOT EXISTS JGL (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
+          db.execute('''CREATE TABLE IF NOT EXISTS MID (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
+          db.execute('''CREATE TABLE IF NOT EXISTS ADC (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
+          db.execute('''CREATE TABLE IF NOT EXISTS Support (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
+          db.execute('''CREATE TABLE IF NOT EXISTS Favoris (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
+        },
+        version: 1
+    );
     return db;
-  }
-
-  Future<void> createCollectionsTables(Database db) async {
-    await db.execute('''
-      CREATE TABLE IF NOT EXISTS TOP (
-        id INTEGER PRIMARY KEY,
-        nom TEXT,
-        icon TEXT,
-        nomCompact TEXT
-      )
-    ''');
-
-    await db.execute('''
-      CREATE TABLE IF NOT EXISTS JGL (
-        id INTEGER PRIMARY KEY,
-        nom TEXT,
-        icon TEXT,
-        nomCompact TEXT
-      )
-    ''');
-
-    await db.execute('''
-      CREATE TABLE IF NOT EXISTS MID (
-        id INTEGER PRIMARY KEY,
-        nom TEXT,
-        icon TEXT,
-        nomCompact TEXT
-      )
-    ''');
-
-    await db.execute('''
-      CREATE TABLE IF NOT EXISTS ADC (
-        id INTEGER PRIMARY KEY,
-        nom TEXT,
-        icon TEXT,
-        nomCompact TEXT
-      )
-    ''');
-
-    await db.execute('''
-      CREATE TABLE IF NOT EXISTS Support (
-        id INTEGER PRIMARY KEY,
-        nom TEXT,
-        icon TEXT,
-        nomCompact TEXT
-      )
-    ''');
-
-    await db.execute('''
-      CREATE TABLE IF NOT EXISTS Favoris (
-        id INTEGER PRIMARY KEY,
-        nom TEXT,
-        icon TEXT,
-        nomCompact TEXT
-      )
-    ''');
-  }
-
-  void _onCreate(Database db, int version) async {
-
-    await createCollectionsTables(db);
   }
 
   Future<bool> addChampionToCollection(String collectionTable, Champion champion) async {
@@ -139,10 +80,10 @@ class DatabaseCollections {
     // Convert the List<Map<String, dynamic> into a List<Dog>.
     return List.generate(maps.length, (i) {
       return Champion(
-        id: maps[i]['id'] as int,
-        nom: maps[i]['nom'] as String,
-        icon: maps[i]['icon'] as String,
-        nomCompact: maps[i]['nomCompact'] as String,
+        maps[i]['id'] as int,
+        maps[i]['nom'] as String,
+        maps[i]['icon'] as String,
+        maps[i]['nomCompact'] as String,
       );
     });
   }
@@ -161,10 +102,10 @@ class DatabaseCollections {
     // Convert the List<Map<String, dynamic> into a List<Dog>.
     return List.generate(maps.length, (i) {
       return Champion(
-        id: maps[i]['id'] as int,
-        nom: maps[i]['nom'] as String,
-        icon: maps[i]['icon'] as String,
-        nomCompact: maps[i]['nomCompact'] as String,
+        maps[i]['id'] as int,
+        maps[i]['nom'] as String,
+        maps[i]['icon'] as String,
+        maps[i]['nomCompact'] as String,
       );
     });
   }

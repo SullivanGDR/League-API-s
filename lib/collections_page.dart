@@ -11,6 +11,7 @@ class CollectionsPage extends StatefulWidget {
 
 class _CollectionsPage extends State<CollectionsPage> {
 
+
   Color colorGrey = const Color(0xFFA09B8C);
   Color colorBlue = const Color(0xFF005A82);
 

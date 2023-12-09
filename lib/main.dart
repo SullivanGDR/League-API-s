@@ -13,18 +13,10 @@ import 'package:path/path.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialise la base de données et les collections
-  await initDatabaseAndCollections();
+  await DatabaseCollections().initDb();
+  DatabaseCollections().printDatabaseContents();
 
   runApp(MyApp());
-}
-
-Future<void> initDatabaseAndCollections() async {
-  var dbCollections = DatabaseCollections();
-  var database = await dbCollections.db;
-
-  await dbCollections.createCollectionsTables(database!);
-  dbCollections.printDatabaseContents();
 }
 
 class MyApp extends StatelessWidget {

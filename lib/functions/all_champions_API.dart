@@ -23,7 +23,7 @@ Future<List<Champion>> initListChampions(List<Champion> listeChampions) async {
       final String championIcon = '${championData['image']['full']}';
 
       Champion champion =
-          Champion(id: championId, nom: championName, icon: championIcon, nomCompact: championNameCompact, );
+          Champion(championId, championName, championIcon, championNameCompact, );
       listeChampions.add(champion);
     }
 

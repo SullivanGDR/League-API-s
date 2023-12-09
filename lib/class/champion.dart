@@ -4,12 +4,7 @@ class Champion {
   final String icon;
   final String nomCompact;
 
-  const Champion({
-    required this.id,
-    required this.nom,
-    required this.icon,
-    required this.nomCompact,
-  });
+  Champion(this.id, this.nom, this.icon, this.nomCompact);
 
   int getId() {
     return id;
