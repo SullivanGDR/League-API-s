@@ -22,6 +22,7 @@ class ChampionInfoPage extends StatefulWidget {
 
 class _ChampionInfoPageState extends State<ChampionInfoPage> {
   List<ChampionSpells> allSpells = [];
+  late SpeedDial _speedDial;
 
   ChampionInfos championInfo = ChampionInfos('', '', '', '',
       ChampionPassive('', '', ''), [], [], 0, 0, 0, 0, 0, 0, "");
@@ -62,6 +63,14 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
   void initState() {
     super.initState();
     chargement();
+    _initializeSpeedDial();
+  }
+
+  Future<void> _initializeSpeedDial() async {
+    SpeedDial speedDial = await _buildSpeedDial();
+    setState(() {
+      _speedDial = speedDial;
+    });
   }
 
   void chargement() async {
@@ -149,56 +158,64 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
   }
 
   void addChampionToCollectionButton(String nomCollection, Champion champion) async {
-    var dbHelper = DatabaseCollections();
 
-    bool ajoutReussi = await dbHelper.addChampionToCollection(nomCollection, champion);
+    await DatabaseCollections().addChampionToCollection(nomCollection, champion);
 
     final scaffold = ScaffoldMessenger.of(context);
 
-    if (ajoutReussi) {
-      scaffold.showSnackBar(
-        SnackBar(
-          backgroundColor: colorGold,
-          content: Text("Ajout de ${champion.getNom()} dans la collection $nomCollection."),
-        ),
-      );
-    } else {
-      scaffold.showSnackBar(
-        SnackBar(
-          backgroundColor: colorGold,
-          content: Text("${champion.getNom()} est déjà dans la collection $nomCollection."),
-        ),
-      );
-    }
+    scaffold.showSnackBar(
+      SnackBar(
+        backgroundColor: colorGold,
+        content: Text("Ajout de ${champion.getNom()} dans la collection $nomCollection."),
+      ),
+    );
+    _initializeSpeedDial();
   }
 
+  void removeChampionToCollectionButton(String nomCollection, Champion champion) async {
 
+    await DatabaseCollections().deleteItem(widget.champion.getId(), nomCollection);
 
+    final scaffold = ScaffoldMessenger.of(context);
 
-  SpeedDial _buildSpeedDial() {
+    scaffold.showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.red,
+        content: Text("Suppression de ${champion.getNom()} dans la collection $nomCollection."),
+      ),
+    );
+    _initializeSpeedDial();
+  }
+
+  Future<SpeedDial> _buildSpeedDial() async {
     return SpeedDial(
       animatedIcon: AnimatedIcons.menu_close,
-      animatedIconTheme: IconThemeData(size: 22.0),
+      animatedIconTheme: const IconThemeData(size: 22.0),
       backgroundColor: colorBlue,
       foregroundColor: Colors.white,
       children: [
-        _buildSpeedDialChild('Favoris'),
-        _buildSpeedDialChild('Support'),
-        _buildSpeedDialChild('ADC'),
-        _buildSpeedDialChild('MID'),
-        _buildSpeedDialChild('JGL'),
-        _buildSpeedDialChild('TOP'),
+        await _buildSpeedDialChild('Favoris'),
+        await _buildSpeedDialChild('Support'),
+        await _buildSpeedDialChild('ADC'),
+        await _buildSpeedDialChild('MID'),
+        await _buildSpeedDialChild('JGL'),
+        await _buildSpeedDialChild('TOP'),
       ],
     );
   }
 
-  SpeedDialChild _buildSpeedDialChild(String collectionName) {
+  Future<SpeedDialChild> _buildSpeedDialChild(String collectionName) async {
+    bool estDansCollection = await DatabaseCollections().isChampionInCollection(collectionName, widget.champion);
     return SpeedDialChild(
-      child: Icon(Icons.playlist_add),
+      child: Icon(estDansCollection ? Icons.delete : Icons.playlist_add),
       backgroundColor: colorBlue,
-      label: 'Ajouter à $collectionName',
+      label: estDansCollection ? 'Supprimer de $collectionName' : 'Ajouter à $collectionName',
       onTap: () {
-        addChampionToCollectionButton(collectionName, widget.champion);
+        if (estDansCollection) {
+          removeChampionToCollectionButton(collectionName, widget.champion);
+        } else {
+          addChampionToCollectionButton(collectionName, widget.champion);
+        }
       },
     );
   }
@@ -207,11 +224,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF091428),
-      body: _isLoading
-          ? const Center(
-        child: CircularProgressIndicator(),
-      )
-          : _buildContent(),
+      body: _isLoading ? const Center(child: CircularProgressIndicator()) : _buildContent(),
     );
   }
 
@@ -909,7 +922,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
           ],
         ),
       ),
-      floatingActionButton: _buildSpeedDial(),
+      floatingActionButton: _speedDial,
       bottomNavigationBar: const MyBottomAppBar(),
     );
   }

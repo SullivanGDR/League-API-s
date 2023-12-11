@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:lol_api/champion_infos_page.dart';
+import 'package:lol_api/class/champion.dart';
+import 'package:lol_api/class/database.dart';
 import 'package:lol_api/main.dart';
 
 class CollectionsPage extends StatefulWidget {
@@ -10,7 +13,33 @@ class CollectionsPage extends StatefulWidget {
 }
 
 class _CollectionsPage extends State<CollectionsPage> {
+  List<Champion> championsFavoris = [];
+  List<Champion> championsToplane = [];
+  List<Champion> championsJungle = [];
+  List<Champion> championsMidlane = [];
+  List<Champion> championsAdc = [];
+  List<Champion> championsSupport = [];
 
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadListes();
+  }
+
+  void loadListes() async {
+    championsFavoris = await DatabaseCollections().getListeFavoris();
+    championsToplane = await DatabaseCollections().getListeTop();
+    championsJungle = await DatabaseCollections().getListeJgl();
+    championsMidlane = await DatabaseCollections().getListeMid();
+    championsAdc = await DatabaseCollections().getListeAdc();
+    championsSupport = await DatabaseCollections().getListeSupport();
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   Color colorGrey = const Color(0xFFA09B8C);
   Color colorBlue = const Color(0xFF005A82);
@@ -18,6 +47,7 @@ class _CollectionsPage extends State<CollectionsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF091428),
       appBar: AppBar(
         backgroundColor: Colors.white12,
         title: Text(
@@ -34,8 +64,19 @@ class _CollectionsPage extends State<CollectionsPage> {
               onPressed: () {}),
         ],
       ),
+      body: _isLoading
+          ? const Center(
+        child: CircularProgressIndicator(),
+      )
+          : _buildContent(),
+    );
+  }
+
+  Widget _buildContent() {
+    return Scaffold(
       backgroundColor: const Color(0xFF091428),
-      body: Column(
+      body: SingleChildScrollView(
+        child: Column(
         children: [
           Container(
             decoration: const BoxDecoration(
@@ -54,7 +95,58 @@ class _CollectionsPage extends State<CollectionsPage> {
                     )
                   ],
                 ),
-                const Padding(padding: EdgeInsets.only(bottom: 5)),
+                const Padding(padding: EdgeInsets.only(bottom: 10)),
+                GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                  ),
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: championsFavoris.length,
+                  itemBuilder: (context, index) {
+
+                    Champion champion = championsFavoris[index];
+
+                    String normalizedChampionName = champion.getIcon();
+
+                    String imageUrl = 'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/$normalizedChampionName';
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChampionInfoPage(
+                              champion: champion,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Image.network(
+                              imageUrl,
+                              width: double.infinity,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          Text(
+                            champion.getNom(),
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.fade,
+                              fontFamily: 'LoLFont',
+                              color: colorGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -75,7 +167,58 @@ class _CollectionsPage extends State<CollectionsPage> {
                     )
                   ],
                 ),
-                const Padding(padding: EdgeInsets.only(bottom: 5)),
+                const Padding(padding: EdgeInsets.only(bottom: 10)),
+                GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                  ),
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: championsToplane.length,
+                  itemBuilder: (context, index) {
+
+                    Champion champion = championsToplane[index];
+
+                    String normalizedChampionName = champion.getIcon();
+
+                    String imageUrl = 'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/$normalizedChampionName';
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChampionInfoPage(
+                              champion: champion,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Image.network(
+                              imageUrl,
+                              width: double.infinity,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          Text(
+                            champion.getNom(),
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.fade,
+                              fontFamily: 'LoLFont',
+                              color: colorGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -96,7 +239,58 @@ class _CollectionsPage extends State<CollectionsPage> {
                     )
                   ],
                 ),
-                const Padding(padding: EdgeInsets.only(bottom: 5)),
+                const Padding(padding: EdgeInsets.only(bottom: 10)),
+                GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                  ),
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: championsJungle.length,
+                  itemBuilder: (context, index) {
+
+                    Champion champion = championsJungle[index];
+
+                    String normalizedChampionName = champion.getIcon();
+
+                    String imageUrl = 'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/$normalizedChampionName';
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChampionInfoPage(
+                              champion: champion,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Image.network(
+                              imageUrl,
+                              width: double.infinity,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          Text(
+                            champion.getNom(),
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.fade,
+                              fontFamily: 'LoLFont',
+                              color: colorGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -117,7 +311,57 @@ class _CollectionsPage extends State<CollectionsPage> {
                     )
                   ],
                 ),
-                const Padding(padding: EdgeInsets.only(bottom: 5)),
+                const Padding(padding: EdgeInsets.only(bottom: 10)),
+                GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                  ),
+                  shrinkWrap: true,
+                  itemCount: championsMidlane.length,
+                  itemBuilder: (context, index) {
+
+                    Champion champion = championsMidlane[index];
+
+                    String normalizedChampionName = champion.getIcon();
+
+                    String imageUrl = 'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/$normalizedChampionName';
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChampionInfoPage(
+                              champion: champion,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Image.network(
+                              imageUrl,
+                              width: double.infinity,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          Text(
+                            champion.getNom(),
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.fade,
+                              fontFamily: 'LoLFont',
+                              color: colorGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -138,7 +382,58 @@ class _CollectionsPage extends State<CollectionsPage> {
                     )
                   ],
                 ),
-                const Padding(padding: EdgeInsets.only(bottom: 5)),
+                const Padding(padding: EdgeInsets.only(bottom: 10)),
+                GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                  ),
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: championsAdc.length,
+                  itemBuilder: (context, index) {
+
+                    Champion champion = championsAdc[index];
+
+                    String normalizedChampionName = champion.getIcon();
+
+                    String imageUrl = 'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/$normalizedChampionName';
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChampionInfoPage(
+                              champion: champion,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Image.network(
+                              imageUrl,
+                              width: double.infinity,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          Text(
+                            champion.getNom(),
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.fade,
+                              fontFamily: 'LoLFont',
+                              color: colorGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -159,12 +454,63 @@ class _CollectionsPage extends State<CollectionsPage> {
                     )
                   ],
                 ),
-                const Padding(padding: EdgeInsets.only(bottom: 5)),
+                const Padding(padding: EdgeInsets.only(bottom: 10)),
+                GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                  ),
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: championsSupport.length,
+                  itemBuilder: (context, index) {
+
+                    Champion champion = championsSupport[index];
+
+                    String normalizedChampionName = champion.getIcon();
+
+                    String imageUrl = 'https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/$normalizedChampionName';
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChampionInfoPage(
+                              champion: champion,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Image.network(
+                              imageUrl,
+                              width: double.infinity,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          Text(
+                            champion.getNom(),
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.fade,
+                              fontFamily: 'LoLFont',
+                              color: colorGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
         ],
-      ),
+      ),),
       bottomNavigationBar: const MyBottomAppBar(),
     );
   }

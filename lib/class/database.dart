@@ -16,16 +16,16 @@ class DatabaseCollections {
   Future<Database> initDb() async {
     final db = await openDatabase(
         join(await getDatabasesPath(), 'lolCollections.db'),
-        onCreate: (db, version) {
-          db.execute('''CREATE TABLE IF NOT EXISTS TOP (id INTEGER PRIMARY KEYnom TEXT, icon TEXT, nomCompact TEXT)''');
-          db.execute('''CREATE TABLE IF NOT EXISTS JGL (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
-          db.execute('''CREATE TABLE IF NOT EXISTS MID (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
-          db.execute('''CREATE TABLE IF NOT EXISTS ADC (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
-          db.execute('''CREATE TABLE IF NOT EXISTS Support (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
-          db.execute('''CREATE TABLE IF NOT EXISTS Favoris (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
+        onCreate: (db, version){
         },
-        version: 1
+        version: 2
     );
+    await db.execute('''CREATE TABLE IF NOT EXISTS TOP (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
+    await db.execute('''CREATE TABLE IF NOT EXISTS JGL (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
+    await db.execute('''CREATE TABLE IF NOT EXISTS MID (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
+    await db.execute('''CREATE TABLE IF NOT EXISTS ADC (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
+    await db.execute('''CREATE TABLE IF NOT EXISTS Support (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
+    await db.execute('''CREATE TABLE IF NOT EXISTS Favoris (id INTEGER PRIMARY KEY, nom TEXT, icon TEXT, nomCompact TEXT)''');
     return db;
   }
 
@@ -66,7 +66,16 @@ class DatabaseCollections {
     return results.isNotEmpty;
   }
 
-  Future<List<Champion>> getListeTop() async {
+  Future<void> deleteItem(int id, String tableName) async {
+    final db = await this.db;
+    await db!.delete(
+      tableName,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<List<Champion>> getListeFavoris() async {
     // Get a reference to the database.
     final db = await this.db;
 
@@ -75,7 +84,7 @@ class DatabaseCollections {
       return [];
     }
     // Query the table for all The Dogs.
-    List<Map<String, dynamic>> maps = await db.query('TOP');
+    List<Map<String, dynamic>> maps = await db.query('Favoris');
 
     // Convert the List<Map<String, dynamic> into a List<Dog>.
     return List.generate(maps.length, (i) {
@@ -88,7 +97,28 @@ class DatabaseCollections {
     });
   }
 
-  Future<List<Champion>> getListeJGL() async {
+  Future<List<Champion>> getListeTop() async {
+    // Get a reference to the database.
+    final db = await this.db;
+
+    if (db == null) {
+      print("Erreur lors de l'ouverture de la base de données.");
+      return [];
+    }
+
+    List<Map<String, dynamic>> maps = await db.query('TOP');
+
+    return List.generate(maps.length, (i) {
+      return Champion(
+        maps[i]['id'] as int,
+        maps[i]['nom'] as String,
+        maps[i]['icon'] as String,
+        maps[i]['nomCompact'] as String,
+      );
+    });
+  }
+
+  Future<List<Champion>> getListeJgl() async {
     // Get a reference to the database.
     final db = await this.db;
 
@@ -98,6 +128,72 @@ class DatabaseCollections {
     }
     // Query the table for all The Dogs.
     List<Map<String, dynamic>> maps = await db.query('JGL');
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(maps.length, (i) {
+      return Champion(
+        maps[i]['id'] as int,
+        maps[i]['nom'] as String,
+        maps[i]['icon'] as String,
+        maps[i]['nomCompact'] as String,
+      );
+    });
+  }
+
+  Future<List<Champion>> getListeMid() async {
+    // Get a reference to the database.
+    final db = await this.db;
+
+    if (db == null) {
+      print("Erreur lors de l'ouverture de la base de données.");
+      return [];
+    }
+    // Query the table for all The Dogs.
+    List<Map<String, dynamic>> maps = await db.query('MID');
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(maps.length, (i) {
+      return Champion(
+        maps[i]['id'] as int,
+        maps[i]['nom'] as String,
+        maps[i]['icon'] as String,
+        maps[i]['nomCompact'] as String,
+      );
+    });
+  }
+
+  Future<List<Champion>> getListeAdc() async {
+    // Get a reference to the database.
+    final db = await this.db;
+
+    if (db == null) {
+      print("Erreur lors de l'ouverture de la base de données.");
+      return [];
+    }
+    // Query the table for all The Dogs.
+    List<Map<String, dynamic>> maps = await db.query('ADC');
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(maps.length, (i) {
+      return Champion(
+        maps[i]['id'] as int,
+        maps[i]['nom'] as String,
+        maps[i]['icon'] as String,
+        maps[i]['nomCompact'] as String,
+      );
+    });
+  }
+
+  Future<List<Champion>> getListeSupport() async {
+    // Get a reference to the database.
+    final db = await this.db;
+
+    if (db == null) {
+      print("Erreur lors de l'ouverture de la base de données.");
+      return [];
+    }
+    // Query the table for all The Dogs.
+    List<Map<String, dynamic>> maps = await db.query('Support');
 
     // Convert the List<Map<String, dynamic> into a List<Dog>.
     return List.generate(maps.length, (i) {
