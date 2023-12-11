@@ -152,7 +152,6 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
       case 'Mage':
         return 'assets/images/class-icons/mages.png';
       default:
-        // Retourne une image par défaut si le rôle n'est pas reconnu
         return 'assets/images/default.png';
     }
   }
@@ -166,7 +165,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
     scaffold.showSnackBar(
       SnackBar(
         backgroundColor: colorGold,
-        content: Text("Ajout de ${champion.getNom()} dans la collection $nomCollection."),
+        content: Text("Ajout de ${champion.getNom()} dans la collection $nomCollection.", style: const TextStyle(fontFamily: 'LolFontBold', color: Colors.white)),
       ),
     );
     _initializeSpeedDial();
@@ -181,7 +180,7 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
     scaffold.showSnackBar(
       SnackBar(
         backgroundColor: Colors.red,
-        content: Text("Suppression de ${champion.getNom()} dans la collection $nomCollection."),
+        content: Text("Suppression de ${champion.getNom()} dans la collection $nomCollection.", style: const TextStyle(fontFamily: 'LolFontBold', color: Colors.white)),
       ),
     );
     _initializeSpeedDial();
@@ -207,9 +206,10 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
   Future<SpeedDialChild> _buildSpeedDialChild(String collectionName) async {
     bool estDansCollection = await DatabaseCollections().isChampionInCollection(collectionName, widget.champion);
     return SpeedDialChild(
-      child: Icon(estDansCollection ? Icons.delete : Icons.playlist_add),
+      child: estDansCollection ? const Icon(Icons.delete, color: Colors.red) : const Icon(Icons.playlist_add),
       backgroundColor: colorBlue,
       label: estDansCollection ? 'Supprimer de $collectionName' : 'Ajouter à $collectionName',
+      labelStyle: const TextStyle(fontFamily: 'LolFontBold'),
       onTap: () {
         if (estDansCollection) {
           removeChampionToCollectionButton(collectionName, widget.champion);
