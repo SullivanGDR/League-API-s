@@ -178,7 +178,6 @@ class _SettingsPage extends State<SettingsPage> {
           ),
         ],
       ),
-      bottomNavigationBar: const MyBottomAppBar(),
     );
   }
 }

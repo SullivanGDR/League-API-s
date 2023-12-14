@@ -157,7 +157,6 @@ class FabricationPage2 extends State<FabricationPage> {
           ),
         ],
       ),
-      bottomNavigationBar: const MyBottomAppBar(),
     );
   }
 }

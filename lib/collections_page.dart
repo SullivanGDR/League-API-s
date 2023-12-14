@@ -511,7 +511,6 @@ class _CollectionsPage extends State<CollectionsPage> {
           ),
         ],
       ),),
-      bottomNavigationBar: const MyBottomAppBar(),
     );
   }
 }

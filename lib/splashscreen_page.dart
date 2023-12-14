@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lol_api/home.dart';
 import 'dart:async';
 import 'package:lol_api/home_page.dart';
 
@@ -18,7 +19,7 @@ class SplashScreenState extends State<SplashScreen> {
     Timer(
         const Duration(seconds: 3),
         () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const MyHomePage())));
+            MaterialPageRoute(builder: (context) => const HomePage())));
   }
 
   @override

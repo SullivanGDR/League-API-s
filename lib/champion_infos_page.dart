@@ -923,7 +923,6 @@ class _ChampionInfoPageState extends State<ChampionInfoPage> {
         ),
       ),
       floatingActionButton: _speedDial,
-      bottomNavigationBar: const MyBottomAppBar(),
     );
   }
 }
